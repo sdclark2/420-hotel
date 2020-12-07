@@ -1,75 +1,75 @@
 DECLARE
+    H1_ID Number;
+    H2_ID Number;
+    H3_ID Number;
+    H4_ID Number;
+    H5_ID Number;
     res_id NUMBER;
     arnold_res_id NUMBER;
     john_res_id NUMBER;
 BEGIN
-    -- Member 1, Stevie
-    DBMS_OUTPUT.PUT_LINE('1. Add a hotel:');
+    CREATE SEQUENCE HOTEL_ID_SEQ
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    MAXVALUE 500
+    NOCYCLE;
+    
+-- Member 1, Stevie
+    -- 1. Add a hotel:
+    DBMS_OUTPUT.PUT_LINE('1. Add Hotels:');
     DBMS_OUTPUT.PUT_LINE('a.	Add a new hotel called H1 in New York, NY');
-    Add_Hotel('H1',
-              'Somewhere in New York...',
-              'New York',
-              'NY',
-              12345,
-              '123-456-6789',
-              0);
+    Add_Hotel('H1', '130 W 46th Street', 'New York', 'NY', '10036', '2124852400', 0);
+    
     DBMS_OUTPUT.PUT_LINE('b.	Add a new hotel called H2 in Baltimore, MD');
-    Add_Hotel('H2',
-              'Somewhere in Baltimore...',
-              'Baltimore',
-              'MD',
-              12345,
-              '123-456-6789',
-              0);
+    Add_Hotel('H2', '200 International Drive', 'Baltimore', 'MD', '21202', '4105765800', 0);
+    
     DBMS_OUTPUT.PUT_LINE('c.	Add a new hotel called H3 in San Francisco, CA');
-    Add_Hotel('H3',
-              'Somewhere in San Fransisco...',
-              'San Fransisco',
-              'CA',
-              12345,
-              '123-456-6789',
-              0);
+    Add_Hotel('H3', '345 Stockton Street', 'San Francisco', 'CA', '94108', '4153981234', 0);
+    
     DBMS_OUTPUT.PUT_LINE('d.	Add a new hotel called H4 in Annapolis, MD');
-    Add_Hotel('H4',
-              'Somewhere in Annapolis...',
-              'Annapolis',
-              'MD',
-              12345,
-              '123-456-6789',
-              0);
+    Add_Hotel('H4', '100 Westgate Circle', 'Annapolis', 'MD', '21401', '4109724300', 0); 
+    
     DBMS_OUTPUT.PUT_LINE('e.	Add a new hotel called H5 in Baltimore, MD');
-    Add_Hotel('H5',
-              'Somewhere in Baltimore...',
-              'Baltimore',
-              'MD',
-              12345,
-              '123-456-6789',
-              0);
+    Add_Hotel('H5', '222 St Paul Place', 'Baltimore', 'MD', '21202', '4107272222', 0);
 
-    DBMS_OUTPUT.PUT_LINE('2.	Find a hotel:');
-     -- TODO
+    -- 2.	Find a hotel:
+    DBMS_OUTPUT.PUT_LINE('2. Find Hotels:');
     DBMS_OUTPUT.PUT_LINE('a.	Find the hotel ID for the hotel H3');
-     -- TODO
+    FindHotel('345 Stockton Street', H3_ID);
+    
     DBMS_OUTPUT.PUT_LINE('b.	Find the hotel ID for the hotel H2');
-     -- TODO
-    DBMS_OUTPUT.PUT_LINE('3. Add a room:');
-     -- TODO
-    DBMS_OUTPUT.PUT_LINE('a.	Add 5 double rooms to H2');
-     -- TODO
-    DBMS_OUTPUT.PUT_LINE('b.	Add 2 suites to H2');
-     -- TODO
-    DBMS_OUTPUT.PUT_LINE('c.	Add 10 double rooms to H1');
-     -- TODO
-    DBMS_OUTPUT.PUT_LINE('d.	Add 1 conference hall to H4');
-     -- TODO
-    DBMS_OUTPUT.PUT_LINE('e.	Add 1 conference hall to H5');
-     -- TODO
-    DBMS_OUTPUT.PUT_LINE('4. Sell H1');
-     -- TODO
-    DBMS_OUTPUT.PUT_LINE('5. Report hotels in the state of MD');
-    -- TODO
+    FindHotel('200 International Drive', H2_ID);
 
-    -- Member 2, Thomas Steinholz
+    -- 3. Add a room:
+    DBMS_OUTPUT.PUT_LINE('3. Add Rooms:');
+    DBMS_OUTPUT.PUT_LINE('a.	Add 5 double rooms to H2');
+    
+    AddHotelRoom(H2_ID, 'double, 10');
+    DBMS_OUTPUT.PUT_LINE('b.	Add 2 suites to H2');
+    AddHotelRoom(H2_ID, 'suite', 2);
+    
+    DBMS_OUTPUT.PUT_LINE('c.	Add 10 double rooms to H1');
+    FindHotel('130 W 46th Street', H1_ID);
+    AddHotelRoom(H1_ID, 'double', 10);
+    
+    DBMS_OUTPUT.PUT_LINE('d.	Add 1 conference hall to H4');
+    FindHotel('100 Westgate Circle', H4_ID);
+    AddHotelRoom(H4_ID, 'conference', 1);
+    
+    DBMS_OUTPUT.PUT_LINE('e.	Add 1 conference hall to H5');
+    FindHotel('222 St Paul Place', H5_ID);
+    AddHotelRoom(H5_ID, 'conference', 1);
+
+    -- 4. Sell H1
+    DBMS_OUTPUT.PUT_LINE('4. Sell Hotel H1:');
+    SellHotel(H1_ID);
+
+    -- 5. Report hotels in the state of MD
+    DBMS_OUTPUT.PUT_LINE('5. Report Hotels in MD:');
+    ReportHotel('MD');
+
+-- Member 2, Thomas Steinholz
     DBMS_OUTPUT.PUT_LINE('6. Reservations:');
     DBMS_OUTPUT.PUT_LINE('a.	Make a reservation at hotel H2 by John Smith from Aug 1 – Aug 10 for a suite');
     MakeReservation(2,
